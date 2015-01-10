@@ -86,12 +86,12 @@ angular.module('starter', ['ionic', 'fartModule', 'starter.services'])
       }
     })
 
-  .state('tab.account', {
-    url: '/account',
+  .state('tab.myfarts', {
+    url: '/myfarts',
     views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
+      'tab-myfarts': {
+        templateUrl: 'templates/tab-myfarts.html',
+        controller: 'MyFartsCtrl'
       }
     }
   });

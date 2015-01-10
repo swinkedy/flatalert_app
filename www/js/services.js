@@ -3,13 +3,15 @@ angular.module('starter.services', [])
 .factory('APICallsFactory', function($http) {
     return {
         getAllFarts: function() {
-            var promise = $http.get('https://flatalert.herokuapp.com')
-            .then(function(result) {
-                alert('yes');
-                return result.data;
+            return $http.get('https://flatalert.herokuapp.com').then(function(callResult) {
+                for (var i = 0; i <= callResult.data.length; i++) {
+                    if (callResult.data[i]) {
+                        callResult.data[i].fartwaveArray = callResult.data[i].fartwave.split(" ");
+                    }
+                }
+
+                return callResult.data;
             });
-            
-            return promise;
         },
 
         getFartomics: function() {
