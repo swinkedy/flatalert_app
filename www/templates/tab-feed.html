@@ -1,0 +1,52 @@
+<ion-view view-title="Fear of the Farts">
+    <ion-content class="padding">
+        <div class="list card" ng-repeat="fart in allFarts">
+
+            <ion-item class="item item-avatar item-icon-right" href="#/tab/friend/3">
+                <img src="img/ionic.png">
+                <h2>Marty McFly</h2>
+                <p>on {{fart.created_at}}</p>
+                <i class="icon ion-ios7-arrow-forward"></i>
+            </ion-item>
+
+            <div class="item item-body">
+                <img class="full-image" src="img/gauss.jpg">
+                <div class="row">
+                    <div class="col">Duration:</div>
+                    <div class="col">3 seconds</div>
+                </div>
+
+                <div class="row">
+                    <div class="col">Fragrance peak:</div>
+                    <div class="col">670</div>
+                </div>
+
+                <div class="row">
+                    <div class="col">Execution quality:</div>
+                    <div class="col">
+                    <i class="icon ion-ios7-star"></i>
+                    <i class="icon ion-ios7-star"></i>
+                    <i class="icon ion-ios7-star"></i>
+                    <i class="icon ion-ios7-star"></i>
+                    <i class="icon ion-ios7-star-outline"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="item tabs tabs-secondary tabs-icon-left">
+                <a class="tab-item" href="#">
+                    <i class="icon ion-thumbsup"></i>
+                    Like
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-chatbox"></i>
+                    Comment
+                </a>
+                <a class="tab-item" href="#">
+                    <i class="icon ion-share"></i>
+                    Share
+                </a>
+            </div> -->
+        </div>
+    </ion-content>
+</ion-view>
