@@ -1,8 +1,15 @@
 /* Empty. Add your own CSS if you like */
 .fartchart {
     width: 100%;
+    /*height: 300px;*/
 }
 
 .italic {
     font-style: italic !important;
+}
+
+.claimfart button {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
 }

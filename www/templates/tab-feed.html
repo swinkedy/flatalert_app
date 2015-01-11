@@ -2,16 +2,15 @@
     <ion-content class="padding">
         <div class="list card" ng-repeat="fart in allFarts">
 
-            <ion-item class="item item-avatar item-icon-right" href="#/tab/friend/3">
+            <div class="item item-avatar">
                 <img src="img/ionic.png">
                 <h2>Unknown Fartist</h2>
                 <p>on {{fart.created_at}}</p>
-                <i class="icon ion-ios7-arrow-forward"></i>
-            </ion-item>
+            </div>
 
             <div class="item item-body">
                 <!-- <img class="full-image" src="img/gauss.jpg"> -->
-                <canvas id="myChart_{{fart.id}}"> </canvas>
+                <canvas id="myChart_{{fart.id}}" class="fartchart"> </canvas>
                 
                 <div class="row">
                     <div class="col">Family:</div>
@@ -47,6 +46,10 @@
                     <i class="icon ion-ios7-star"></i>
                     <i class="icon ion-ios7-star-outline"></i>
                     </div>
+                </div>
+                
+                <div class="claimfart">
+                <button class="button icon-left ion-android-hand">Claim this fart!</button>
                 </div>
             </div>
 

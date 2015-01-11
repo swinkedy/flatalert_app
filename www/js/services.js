@@ -8,7 +8,8 @@ angular.module('starter.services', [])
             $http.get('https://flatalert.herokuapp.com').success(function(callResult) {
                 for (var i = 0; i <= callResult.length; i++) {
                     if (callResult[i]) {
-                        callResult[i].fartwaveArray = callResult[i].fartwave.split(" ");
+                        
+                        callResult[i].fartwaveArray = callResult[i].fartwave.split(" ").map(Number); // recreate array from string and convert to int
                     }
                 }
 
