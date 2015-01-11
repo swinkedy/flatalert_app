@@ -40,8 +40,6 @@ angular.module('fartModule', ['ionic'])
                         bottom: 10,
                         right: 15
                     },
-                    //labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-                    //labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
                     shadow: {
                         color: '#aaa',
                         blur: 5
@@ -53,54 +51,16 @@ angular.module('fartModule', ['ionic'])
                 }
             }).draw();
         }
-        //        var ctx;
-        //        var dataset;
-        //        var myLineChart;
-        //
-        //        for (var key in $scope.allFarts) {
-        //            var fart = $scope.allFarts[key];
-        //
-        //            dataset = {
-        //                labels: fart.fartwaveArray,
-        //                datasets: [
-        //                    {
-        //                        label: "Fart n." + fart.id,
-        //                        fillColor: "rgba(220,220,220,0.2)",
-        //                        strokeColor: "rgba(220,220,220,1)",
-        //                        pointColor: "rgba(220,220,220,1)",
-        //                        pointStrokeColor: "#fff",
-        //                        pointHighlightFill: "#fff",
-        //                        pointHighlightStroke: "rgba(220,220,220,1)",
-        //                        data: fart.fartwaveArray
-        //                    }
-        //                ]
-        //            };
-        //
-        //
-        //            ctx = $("#myChart_" + fart.id).get(0).getContext("2d");
-        //
-        //            myLineChart = new Chart(ctx).Line(dataset, {
-        //                bezierCurve: true,
-        //                showScale: false,
-        //                showTooltips: false,
-        //                responsive: true
-        //            }); 
-        //        }
-    }, 2000);
+    }, 1500);
 
 
     //$scope.allFarts = Farts.all();
 })
 
-.controller('RankingsCtrl', function($scope, Farts) {
-    $scope.chats = Farts.all();
-    $scope.remove = function(chat) {
-        Farts.remove(chat);
-    }
+.controller('RankingsCtrl', function($scope) {
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Farts) {
-    $scope.chat = Farts.get($stateParams.chatId);
+.controller('ChatDetailCtrl', function($scope, $stateParams) {
 })
 
 .controller('FriendsCtrl', function($scope, Friends) {

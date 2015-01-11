@@ -4,75 +4,51 @@ angular.module('starter.services', [])
     return {
         getAllFarts: function() {
             var deferred = $q.defer();
+            var currentDateTime = new Date();
+            
 
             $http.get('https://flatalert.herokuapp.com').success(function(callResult) {
                 for (var i = 0; i <= callResult.length; i++) {
                     if (callResult[i]) {
+                        // recreate array from string and convert to int
+                        callResult[i].fartwaveArray = callResult[i].fartwave.split(" ").map(Number); 
                         
-                        callResult[i].fartwaveArray = callResult[i].fartwave.split(" ").map(Number); // recreate array from string and convert to int
+                        if (callResult[i].fartomic) { 
+                            // adjust units
+                            callResult[i].fartomic.maximum = callResult[i].fartomic.maximum * 10;
+                            
+                            // round max speed
+                            callResult[i].fartomic.max_speed = Math.round(callResult[i].fartomic.max_speed);
+                            
+                            // divide aoc by avogadro constant and transform in kmol (obviously it does not make any sense)
+                            callResult[i].fartomic.aoc = Math.round(callResult[i].fartomic.aoc / 6.022e23 / 1000);
+                        }
+                        
+                        // get Date and Time of creation
+                        var dateTime = new Date(callResult[i].created_at); //.split("T");
+                        var diff = (currentDateTime - dateTime) / 1000; // want it in seconds 
+                        var msg;
+                        
+                        if (diff / 60 <= 1) {                      // less than 1 minute ago
+                            msg = "less than 1 minute ago";
+                        } else if (diff / 3600 <= 1) {           // less than 1 hour ago
+                            msg = Math.round(diff / 60) + " minutes ago";
+                        } else if (diff / 86400 <= 1) {         // less than 1 day ago
+                            msg = Math.round(diff / 3600) + " hours ago";
+                        } else if (diff / 2592000 <= 1) {     // less than 30 days ago
+                            msg = Math.round(diff / 86400) + " days ago";
+                        } else {
+                            msg = dateTime;
+                        }                        
+                        
+                        callResult[i].creationDateTime = msg;
                     }
                 }
 
                 deferred.resolve(callResult)});
 
             return deferred.promise; //callResult.data;
-        },
-
-        getFartomics: function() {
         }
-    }
-})
-
-.factory('Farts', function() {
-
-    // Some fake testing data
-    var farts = [
-        {
-            "id":58,
-            "fartwave":"136 158 177 190 199 202 204 204 203 201 199 196 194 191 188 185 181 179 175 172 169 166 163 161 158 155 152 149 147 144 143 140 138 135 133 131 129 127 125 124 121 ",
-            "created_at":"2015-01-10T18:21:23.043Z",
-            "updated_at":"2015-01-10T18:21:23.043Z"
-        },
-        {
-            "id":59,
-            "fartwave":"131 165 202 238 268 292 312 328 342 354 364 372 379 385 388 388 384 377 370 364 357 351 345 339 333 326 320 314 309 303 297 291 286 281 276 271 266 262 257 253 248 243 239 235 230 226 222 218 213 209 205 201 197 193 189 186 182 178 175 172 168 165 162 160 157 154 151 149 146 144 141 139 137 134 132 130 128 126 125 123 121 ",
-            "created_at":"2015-01-10T18:22:59.138Z",
-            "updated_at":"2015-01-10T18:22:59.138Z"
-        },
-        {
-            "id":60,
-            "fartwave":"125 152 181 207 230 250 267 281 294 304 314 323 330 336 338 336 333 328 323 318 313 308 303 298 294 290 285 281 277 273 269 264 260 256 251 247 243 238 234 230 226 222 218 214 211 207 203 200 196 193 189 186 183 179 176 173 170 167 165 162 159 157 154 151 149 146 144 142 140 138 135 133 131 129 128 126 124 122 120 ",
-            "created_at":"2015-01-10T18:24:11.215Z",
-            "updated_at":"2015-01-10T18:24:11.215Z"
-        },
-        {
-            "id":61,
-            "fartwave":"146 178 209 238 264 287 306 323 337 347 352 352 349 344 338 332 326 320 314 308 302 296 291 285 280 274 270 264 259 255 250 245 241 236 231 227 223 219 214 210 206 202 199 195 191 188 184 181 178 174 171 168 165 162 160 157 154 151 149 146 144 142 139 137 135 133 130 129 127 125 123 121 120 ",
-            "created_at":"2015-01-10T18:26:11.114Z",
-            "updated_at":"2015-01-10T18:26:11.114Z"
-        },
-        {
-            "id":62,
-            "fartwave":"120 121 122 122 123 123 124 125 126 126 127 128 129 129 130 130 130 130 129 129 128 128 127 126 125 124 123 122 122 121 120 ",
-            "created_at":"2015-01-10T18:34:39.835Z",
-            "updated_at":"2015-01-10T18:34:39.835Z"
-        }];
-
-    return {
-        all: function() {
-            return farts;
-        }/*,
-        remove: function(fart) {
-            farts.splice(farts.indexOf(chat), 1);
-        },
-        get: function(chatId) {
-            for (var i = 0; i < chats.length; i++) {
-                if (chats[i].id === parseInt(chatId)) {
-                    return chats[i];
-                }
-            }
-            return null;
-        }*/
     }
 })
 

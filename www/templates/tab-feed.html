@@ -1,11 +1,11 @@
 <ion-view view-title="Fear of the Farts">
-    <ion-content class="padding">
+    <ion-content>
         <div class="list card" ng-repeat="fart in allFarts">
 
             <div class="item item-avatar">
-                <img src="img/ionic.png">
+                <img src="img/unknown.png">
                 <h2>Unknown Fartist</h2>
-                <p>on {{fart.created_at}}</p>
+                <p>{{fart.creationDateTime}}</p>
             </div>
 
             <div class="item item-body">
@@ -13,38 +13,38 @@
                 <canvas id="myChart_{{fart.id}}" class="fartchart"> </canvas>
                 
                 <div class="row">
-                    <div class="col">Family:</div>
-                    <div class="col italic">quick fart</div>
+                    <div class="col col-66">Family:</div>
+                    <div class="col">{{fart.fartomic.fart_type}}</div>
                 </div>
                 
                 <div class="row">
-                    <div class="col">Duration:</div>
-                    <div class="col">{{fart.fartomic.duration}} seconds</div>
+                    <div class="col col-66">Duration:</div>
+                    <div class="col">{{fart.fartomic.duration}} s</div>
                 </div>
 
                 <div class="row">
-                    <div class="col">Fragrance peak:</div>
-                    <div class="col">{{fart.fartomic.maximum}}</div>
+                    <div class="col col-66">Fragrance peak:</div>
+                    <div class="col">{{fart.fartomic.maximum}} ppm</div>
                 </div>
                 
                 <div class="row">
-                    <div class="col">Total volume:</div>
-                    <div class="col">{{fart.fartomic.aoc}}</div>
+                    <div class="col col-66">Total emission:</div>
+                    <div class="col">{{fart.fartomic.aoc}} kmol</div>
                 </div>
                 
                 <div class="row">
-                    <div class="col">Expulsion speed:</div>
-                    <div class="col">{{fart.fartomic.max_speed}}</div>
+                    <div class="col col-66">Max evacuation speed:</div>
+                    <div class="col">{{fart.fartomic.max_speed}} ppm/s</div>
                 </div>
 
                 <div class="row">
-                    <div class="col">Execution quality:</div>
+                    <div class="col col-66">Execution quality:</div>
                     <div class="col">
-                    <i class="icon ion-ios7-star"></i>
-                    <i class="icon ion-ios7-star"></i>
-                    <i class="icon ion-ios7-star"></i>
-                    <i class="icon ion-ios7-star"></i>
-                    <i class="icon ion-ios7-star-outline"></i>
+                    <i class="icon" ng-class="fart.fartomic.quality >= 1 ? 'ion-ios7-star' : 'ion-ios7-star-outline'"></i>
+                    <i class="icon" ng-class="fart.fartomic.quality >= 2 ? 'ion-ios7-star' : 'ion-ios7-star-outline'"></i>
+                    <i class="icon" ng-class="fart.fartomic.quality >= 3 ? 'ion-ios7-star' : 'ion-ios7-star-outline'"></i>
+                    <i class="icon" ng-class="fart.fartomic.quality >= 4 ? 'ion-ios7-star' : 'ion-ios7-star-outline'"></i>
+                    <i class="icon" ng-class="fart.fartomic.quality == 5 ? 'ion-ios7-star' : 'ion-ios7-star-outline'"></i>
                     </div>
                 </div>
                 
