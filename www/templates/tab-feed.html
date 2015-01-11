@@ -4,21 +4,38 @@
 
             <ion-item class="item item-avatar item-icon-right" href="#/tab/friend/3">
                 <img src="img/ionic.png">
-                <h2>Marty McFly</h2>
+                <h2>Unknown Fartist</h2>
                 <p>on {{fart.created_at}}</p>
                 <i class="icon ion-ios7-arrow-forward"></i>
             </ion-item>
 
             <div class="item item-body">
-                <img class="full-image" src="img/gauss.jpg">
+                <!-- <img class="full-image" src="img/gauss.jpg"> -->
+                <canvas id="myChart_{{fart.id}}"> </canvas>
+                
+                <div class="row">
+                    <div class="col">Family:</div>
+                    <div class="col italic">quick fart</div>
+                </div>
+                
                 <div class="row">
                     <div class="col">Duration:</div>
-                    <div class="col">3 seconds</div>
+                    <div class="col">{{fart.fartomic.duration}} seconds</div>
                 </div>
 
                 <div class="row">
                     <div class="col">Fragrance peak:</div>
-                    <div class="col">670</div>
+                    <div class="col">{{fart.fartomic.maximum}}</div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">Total volume:</div>
+                    <div class="col">{{fart.fartomic.aoc}}</div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">Expulsion speed:</div>
+                    <div class="col">{{fart.fartomic.max_speed}}</div>
                 </div>
 
                 <div class="row">

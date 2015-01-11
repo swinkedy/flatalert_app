@@ -1,18 +1,51 @@
 angular.module('fartModule', ['ionic'])
 
 .controller('FeedCtrl', function($scope, $http, APICallsFactory, $ionicLoading, Farts) {
-    /*$scope.show = function() {
-        $ionicLoading.show({
-            template: 'Loading...'
-        });
-    };*/
-    /*$scope.allFarts = APICallsFactory.getAllFarts().then(function(promise) {        
-        return promise;
-    });*/
-    /*$scope.hide = function(){
-        $ionicLoading.hide();
-    };*/
-    $scope.allFarts = Farts.all();
+    $scope.allFarts = [];
+
+    $scope.refresh = function() {
+        APICallsFactory.getAllFarts().then(function(data) { 
+            $scope.allFarts = data;
+            
+            var ctx;
+            var dataset;
+            var myLineChart;
+
+            for (var key in $scope.allFarts) {
+                var fart = $scope.allFarts[key];
+
+                dataset = {
+                    labels: fart.fartwaveArray,
+                    datasets: [
+                        {
+                            label: "Fart n." + fart.id,
+                            fillColor: "rgba(220,220,220,0.2)",
+                            strokeColor: "rgba(220,220,220,1)",
+                            pointColor: "rgba(220,220,220,1)",
+                            pointStrokeColor: "#fff",
+                            pointHighlightFill: "#fff",
+                            pointHighlightStroke: "rgba(220,220,220,1)",
+                            data: fart.fartwaveArray
+                        }
+                    ]
+                };
+
+                ctx = $("#myChart_" + fart.id).get(0).getContext("2d");
+                
+                alert(typeof ctx);
+
+                myLineChart = new Chart(ctx).Line(dataset, {
+                    bezierCurve: true
+                }); 
+            }
+        })
+    }
+
+    $scope.refresh();
+
+
+
+    //$scope.allFarts = Farts.all();
 })
 
 .controller('RankingsCtrl', function($scope, Farts) {
@@ -35,15 +68,18 @@ angular.module('fartModule', ['ionic'])
 })
 
 .controller('MyFartsCtrl', function($scope, APICallsFactory) { 
-    $scope.allFarts = APICallsFactory.getAllFarts().then(function(allFarts) {        
-       // alert(Object.keys(allFarts[0]));
+    var myLineCharts = [];
+    //var ctx = $(".myChart").get(0).getContext("2d");
 
-        
+    $scope.allFarts = APICallsFactory.getAllFarts().then(function(allFarts) {        
+        // alert(Object.keys(allFarts[0]));
+        //allFarts = allFarts.slice(0,19);
+
         var data = {
             labels: allFarts[0].fartwaveArray,
             datasets: [
                 {
-                    label: "My First dataset",
+                    label: "Fart n." + allFarts[0].id,
                     fillColor: "rgba(220,220,220,0.2)",
                     strokeColor: "rgba(220,220,220,1)",
                     pointColor: "rgba(220,220,220,1)",
@@ -55,15 +91,15 @@ angular.module('fartModule', ['ionic'])
             ]
         };
 
-        // Get context with jQuery - using jQuery's .get() method.
-        for (var i = 0; i <= allFarts.length; i++) {
-            var ctx = $("#myChart" + allFarts[i].id).get(0).getContext("2d");
-        }
 
-        var myLineChart = new Chart(ctx).Line(data, {
+        // Get context with jQuery - using jQuery's .get() method.
+
+        var ctx = $("#myChart").get(0).getContext("2d");
+
+        myLineCharts[0] = new Chart(ctx).Line(data, {
             bezierCurve: true
         }); 
-        
-        return allFarts
+
+        return allFarts;
     });
 });

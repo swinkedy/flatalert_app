@@ -1,17 +1,20 @@
 angular.module('starter.services', [])
 
-.factory('APICallsFactory', function($http) {
+.factory('APICallsFactory', function($http, $q) {
     return {
         getAllFarts: function() {
-            return $http.get('https://flatalert.herokuapp.com').then(function(callResult) {
-                for (var i = 0; i <= callResult.data.length; i++) {
-                    if (callResult.data[i]) {
-                        callResult.data[i].fartwaveArray = callResult.data[i].fartwave.split(" ");
+            var deferred = $q.defer();
+
+            $http.get('https://flatalert.herokuapp.com').success(function(callResult) {
+                for (var i = 0; i <= callResult.length; i++) {
+                    if (callResult[i]) {
+                        callResult[i].fartwaveArray = callResult[i].fartwave.split(" ");
                     }
                 }
 
-                return callResult.data;
-            });
+                deferred.resolve(callResult)});
+
+            return deferred.promise; //callResult.data;
         },
 
         getFartomics: function() {
